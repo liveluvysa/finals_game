@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Tic-Tac-Boom!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <button class="mute" id="mute" title="Sound on/off">🔊</button>
+    <div class="bg" id="bg"></div>
+    <div id="app">
+
+
+        <section id="welcome" class="screen active">
+            <div class="hero" id="hero"></div>
+            <h1>TIC-TAC-<span class="o">BOOM!</span></h1>
+            <p>First to 3 round wins rules the arcade!</p>
+            <button id="startBtn" class="blink">▶ START GAME</button><br>
+            <button id="howBtn" class="alt">? HOW TO PLAY</button>
+        </section>
+
+
+        <section id="game" class="screen">
+            <div class="top">
+                <div class="pl X" id="plX"><svg class="av" viewBox="0 0 100 100" id="avX"></svg>
+                    <div class="score" id="sx">0</div>
+                    <div class="pips" id="pipX"></div>
+                </div>
+                <div class="mid">ROUND<br><span id="rnd" style="font-size:16px;color:#fff">1</span></div>
+                <div class="pl O" id="plO"><svg class="av" viewBox="0 0 100 100" id="avO"></svg>
+                    <div class="score" id="so">0</div>
+                    <div class="pips" id="pipO"></div>
+                </div>
+            </div>
+            <div id="turn"></div>
+            <div class="board" id="board"></div>
+            <div id="msg"></div>
+            <div class="pw">
+                <div class="X" id="px"></div>
+                <div class="O" id="po"></div>
+            </div>
+        </section>
+
+
+        <section id="round" class="screen">
+            <svg class="big" id="rIcon" viewBox="0 0 100 100"></svg>
+            <h2 id="rTitle"></h2>
+            <p id="rScore"></p>
+            <button id="nextBtn">▶ NEXT ROUND</button>
+        </section>
+
+
+        <section id="final" class="screen">
+            <svg class="big" viewBox="0 0 100 100" fill="#ffd400">
+                <path
+                    d="M28 10h44v8h14v14c0 12-9 20-20 22-3 6-8 10-12 11v13h12v8H34v-8h12V65c-4-1-9-5-12-11-11-2-20-10-20-22V18h14zM22 26v6c0 6 4 11 10 13-3-6-4-12-4-19zm56 0h-6c0 7-1 13-4 19 6-2 10-7 10-13z" />
+            </svg>
+            <h2>GAME OVER</h2>
+            <h2 id="fTitle"></h2>
+            <p id="fScore"></p>
+            <button id="backBtn">↺ BACK TO START</button>
+        </section>
+    </div>
+
+
+    <footer>
+        <div>PROJECT BY: <b>Reese F. Dela Cruz</b> and <b>Maxine Ysabel A. Matanguihan</b></div>
+        <div class="r">© 2026 ALL RIGHTS RESERVED</div>
+    </footer>
+
+
+    <div class="modal" id="modal">
+        <div class="box">
+            <h2 style="color:var(--x)">HOW TO PLAY</h2>
+            <div class="rule"><svg viewBox="0 0 100 100"
+                    style="fill:none;stroke:var(--x);stroke-width:12;stroke-linecap:round">
+                    <path d="M20 20L80 80M80 20L20 80" />
+                </svg>
+                <div>Take turns placing marks. Get <b>3 in a row</b> to win a round.</div>
+            </div>
+            <div class="rule"><svg viewBox="0 0 100 100" style="fill:none;stroke:var(--o);stroke-width:12;opacity:.5">
+                    <circle cx="50" cy="50" r="32" />
+                </svg>
+                <div><b>Vanishing marks:</b> only 3 per player. A 4th mark deletes your oldest (it blinks as a warning).
+                </div>
+            </div>
+            <div class="rule"><svg viewBox="0 0 100 100" fill="#ffd400">
+                    <polygon points="50,5 61,35 95,35 68,55 78,90 50,70 22,90 32,55 5,35 39,35" />
+                </svg>
+                <div>Win <b>3 rounds</b> to win the match. Draws are replayed.</div>
+            </div>
+            <div class="rule"><svg viewBox="0 0 100 100" fill="var(--x)" id="iconErase"></svg>
+                <div><b>BOOM:</b> blow up an opponent’s mark, then place yours.</div>
+            </div>
+            <div class="rule"><svg viewBox="0 0 100 100" fill="var(--o)" id="iconExtra"></svg>
+                <div><b>SHIELD:</b> keep 4 marks this round.</div>
+            </div>
+            <div class="rule"><svg viewBox="0 0 100 100" fill="#ffd400" id="iconDouble"></svg>
+                <div><b>DOUBLE MOVE:</b> place two marks in one turn.</div>
+            </div>
+            <p>Each player gets ONE power-up per round. Power-ups refresh every new round!</p>
+            <button id="closeBtn">GOT IT!</button>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
