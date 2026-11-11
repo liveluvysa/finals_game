@@ -12,7 +12,6 @@ const NAMES = { erase: "BOOM", extra: "SHIELD", double: "DOUBLE MOVE" };
 const $ = id => document.getElementById(id);
 let S = null, muted = false, ac = null;
 
-
 /* ---------- sound ---------- */
 function beep(f, d = .1, type = "square", v = .05, delay = 0) {
     if (muted) return;
@@ -29,11 +28,9 @@ const sfx = {
     vanish: () => beep(150, .2, "sawtooth"),
     power: () => { beep(300, .08, "square", .05, 0); beep(600, .08, "square", .05, .08); beep(900, .15, "square", .05, .16) },
     win: () => [523, 659, 784, 1047].forEach((f, i) => beep(f, .18, "square", .05, i * .12)),
-    draw: () => { beep(300, .2, "triangle"); beep(220, .3, "triangle", .05, .2) },
     click: () => beep(700, .05)
 };
 $("mute").onclick = () => { muted = !muted; $("mute").textContent = muted ? "🔇" : "🔊" };
-
 
 /* ---------- decoration ---------- */
 function initDecor() {
@@ -59,10 +56,9 @@ function show(id) {
     $(id).classList.add("active");
 }
 
-
 /* ---------- game flow ---------- */
 function newMatch() {
-    S = { scores: { X: 0, O: 0 }, used: { X: null, O: null }, round: 1, replay: false };
+    S = { scores: { X: 0, O: 0 }, used: { X: null, O: null }, round: 1 };
     newRound();
 }
 function newRound() {
@@ -146,7 +142,6 @@ function clickCell(i) {
     }
     const line = LINES.find(l => l.every(c => S.board[c] === p));
     if (line) { S.winLine = line; return endRound(p); }
-    if (S.board.every(v => v)) return endRound(null);
     if (S.doubleLeft > 0) { S.doubleLeft--; $("msg").textContent = "⚡ Place your second mark!"; }
     else { S.turn = opp; $("msg").textContent = `Player ${opp}, your move!`; }
     render();
@@ -154,20 +149,13 @@ function clickCell(i) {
 function endRound(w) {
     S.over = true;
     const icon = $("rIcon");
-    if (!w) {
-        S.replay = true; sfx.draw();
-        icon.style.cssText = "fill:#ffd400"; icon.innerHTML = '<path d="M20 55c10-14 20-14 30 0s20 14 30 0v12c-10 14-20 14-30 0s-20-14-30 0z"/><circle cx="35" cy="30" r="7"/><circle cx="65" cy="30" r="7"/>';
-        $("rTitle").textContent = "DRAW!";
-        $("rScore").textContent = "No points. Round will be replayed.";
-    } else {
-        S.scores[w]++; S.replay = false; sfx.win();
-        const c = `var(--${w.toLowerCase()})`;
-        icon.style.cssText = `color:${c};fill:none;stroke:currentColor;stroke-width:11;stroke-linecap:round`;
-        icon.innerHTML = w === "X" ? XSVG : OSVG;
-        $("rTitle").innerHTML = `<span style="color:${c};text-shadow:0 0 12px ${c}">PLAYER ${w}</span><br>WINS THE ROUND!`;
-        $("rScore").innerHTML = `<span style="color:var(--x)">X: ${S.scores.X}</span> &nbsp;|&nbsp; <span style="color:var(--o)">O: ${S.scores.O}</span>`;
-        if (S.scores[w] === WINS_NEEDED) { render(); return setTimeout(() => finalScreen(w), 1100); }
-    }
+    S.scores[w]++; sfx.win();
+    const c = `var(--${w.toLowerCase()})`;
+    icon.style.cssText = `color:${c};fill:none;stroke:currentColor;stroke-width:11;stroke-linecap:round`;
+    icon.innerHTML = w === "X" ? XSVG : OSVG;
+    $("rTitle").innerHTML = `<span style="color:${c};text-shadow:0 0 12px ${c}">PLAYER ${w}</span><br>WINS THE ROUND!`;
+    $("rScore").innerHTML = `<span style="color:var(--x)">X: ${S.scores.X}</span> &nbsp;|&nbsp; <span style="color:var(--o)">O: ${S.scores.O}</span>`;
+    if (S.scores[w] === WINS_NEEDED) { render(); return setTimeout(() => finalScreen(w), 1100); }
     render();
     setTimeout(() => show("round"), 1100);
 }
@@ -190,6 +178,6 @@ function confetti() {
 $("startBtn").onclick = () => { sfx.click(); newMatch() };
 $("howBtn").onclick = () => { sfx.click(); $("modal").classList.add("show") };
 $("closeBtn").onclick = () => $("modal").classList.remove("show");
-$("nextBtn").onclick = () => { sfx.click(); if (!S.replay) S.round++; newRound() };
+$("nextBtn").onclick = () => { sfx.click(); S.round++; newRound() };
 $("backBtn").onclick = () => { sfx.click(); S = null; show("welcome") };
 initDecor();

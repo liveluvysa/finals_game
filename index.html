@@ -14,15 +14,13 @@
     <div class="bg" id="bg"></div>
     <div id="app">
 
-
         <section id="welcome" class="screen active">
             <div class="hero" id="hero"></div>
             <h1>TIC-TAC-<span class="o">BOOM!</span></h1>
-            <p>First to 3 round wins rules the arcade!</p>
+            <p>Place. Vanish. BOOM!</p>
             <button id="startBtn" class="blink">▶ START GAME</button><br>
             <button id="howBtn" class="alt">? HOW TO PLAY</button>
         </section>
-
 
         <section id="game" class="screen">
             <div class="top">
@@ -45,14 +43,12 @@
             </div>
         </section>
 
-
         <section id="round" class="screen">
             <svg class="big" id="rIcon" viewBox="0 0 100 100"></svg>
             <h2 id="rTitle"></h2>
             <p id="rScore"></p>
             <button id="nextBtn">▶ NEXT ROUND</button>
         </section>
-
 
         <section id="final" class="screen">
             <svg class="big" viewBox="0 0 100 100" fill="#ffd400">
@@ -66,12 +62,10 @@
         </section>
     </div>
 
-
     <footer>
         <div>PROJECT BY: <b>Reese F. Dela Cruz</b> and <b>Maxine Ysabel A. Matanguihan</b></div>
         <div class="r">© 2026 ALL RIGHTS RESERVED</div>
     </footer>
-
 
     <div class="modal" id="modal">
         <div class="box">
@@ -91,7 +85,7 @@
             <div class="rule"><svg viewBox="0 0 100 100" fill="#ffd400">
                     <polygon points="50,5 61,35 95,35 68,55 78,90 50,70 22,90 32,55 5,35 39,35" />
                 </svg>
-                <div>Win <b>3 rounds</b> to win the match. Draws are replayed.</div>
+                <div>Win <b>3 rounds</b> to win the match.</div>
             </div>
             <div class="rule"><svg viewBox="0 0 100 100" fill="var(--x)" id="iconErase"></svg>
                 <div><b>BOOM:</b> blow up an opponent’s mark, then place yours.</div>
@@ -106,7 +100,6 @@
             <button id="closeBtn">GOT IT!</button>
         </div>
     </div>
-
 
     <script src="script.js"></script>
 </body>
